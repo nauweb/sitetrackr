@@ -1,0 +1,108 @@
+  <form name="cadastrosite" class="form">
+
+    
+    <label>Nome do site:</label>
+    <input type="text" class="span12" ng-model="site.siteName" required/>
+
+    <label>URL do site:</label>
+    <input type="text" class="span12" ng-model="site.siteUrl" required/>   
+
+
+
+    <div class="row">
+      <div class="span6">
+        <h3>Registro de Domínios, DNS e E-mail</h3>
+        <p class="small"><small>Registro de domínio, DNS e email podem estar no mesmo lugar (Ex: Locaweb, Godaddy) ou todos separados. Use essa seção para manter esses dados organizados</small></p>
+      
+        <h4>Painal da Hospedagem</h4> 
+        <label>Hospedagem</label>
+        <input type="text" class="span5" ng-model="site.hosting.provedor"/>         
+        <label>Usuário do Painel de controle</label>
+        <input type="text" class="span5" ng-model="site.hosting.username"/> 
+        <label>Senha</label>
+        <input type="text" class="span5" ng-model="site.hosting.password"/> 
+
+        <h4>Registro de Domínio</h4> 
+        <p><input type="checkbox" ng-model="site.registro.hostingManaged" name="site.registro.hostingManaged" value="true">Gerenciado na hospedagem</p>
+        <div ng-hide="site.registro.hostingManaged;">
+            <label>Provedor</label>
+            <input type="text" class="span5" ng-model="site.registro.provedor"/> 
+            <label>Usuário</label>
+            <input type="text" class="span5" ng-model="site.registro.username"/> 
+            <label>Senha</label>
+            <input type="text" class="span5" ng-model="site.registro.password"/>
+        </div>
+        
+        <h4>DNS</h4>
+        <p><input type="checkbox" ng-model="site.dns.hostingManaged" name="site.dns.hostingManaged" value="true">Gerenciado na hospedagem</p>
+        <div ng-hide="site.dns.hostingManaged">
+            <label>Provedor DNS</label>
+            <input type="text" class="span5" ng-model="site.dns.provedor"/> 
+            <label>Usuário</label>
+            <input type="text" class="span5" ng-model="site.dns.username"/> 
+            <label>Senha</label>
+            <input type="text" class="span5" ng-model="site.dns.password"/>
+        </div>
+        
+        <h4>Email</h4>
+        <p><input type="checkbox" ng-model="site.email.hostingManaged" name="site.email.hostingManaged" value="true">Gerenciado na hospedagem</p>
+        <div ng-hide="site.email.hostingManaged">
+            <label>Provedor Email</label>
+            <input type="text" class="span5" ng-model="site.email.provedor"/> 
+            <label>Usuário</label>
+            <input type="text" class="span5" ng-model="site.email.username"/> 
+            <label>Senha</label>
+            <input type="text" class="span5" ng-model="site.email.password"/>
+        </div>
+
+        <h4>Configurações de NS</h4>
+        <label>IP Atual do site (A Record)</label>
+        <input type="text" class="span5" ng-model="site.ns.record"/> 
+        <label>Nameservers</label>
+        <input type="text" class="span5" ng-model="site.ns.names"/> 
+        <label>MX (MX Records)</label>
+        <input type="text" class="span5" ng-model="site.ns.mx"/> 
+      </div><!-- span6 -->
+      <div class="span6">
+        <h3>Informações do site</h3>
+        
+        <h4>Informações de acesso WordPress/CMS</h4>
+        <label>Url de login</label>
+        <input type="text" class="span5" ng-model="site.cms.loginUrl"/> 
+        <label>Usuário Admin</label>
+        <input type="text" class="span5" ng-model="site.cms.username"/> 
+        <label>Senha</label>
+        <input type="text" class="span5" ng-model="site.cms.password"/> 
+
+        <h4>FTP</h4>
+        <label>Url de acesso (hostname)</label>
+        <input type="text" class="span5" ng-model="site.ftp.host"/> 
+        <label>Usuário</label>
+        <input type="text" class="span5" ng-model="site.ftp.username"/> 
+        <label>Senha</label>
+        <input type="text" class="span5" ng-model="site.ftp.password"/> 
+
+        <h4>Banco de Dados</h4>
+        <label>Url de acesso PHPMYadmin</label>
+        <input type="text" class="span5" ng-model="site.db.myAdmin"/> 
+        <label>Nome do banco</label>
+        <input type="text" class="span5" ng-model="site.db.name"/> 
+        <label>Usuário</label>
+        <input type="text" class="span5" ng-model="site.db.username"/> 
+        <label>Senha</label>
+        <input type="text" class="span5" ng-model="site.db.password"/> 
+
+
+      </div><!-- span6 -->
+    </div><!-- row -->
+
+        
+  <div class="row span12">
+    <button class="btn btn-danger" ng-click="destroy()" ng-show="site._id" ng-disabled="isClean()">Apagar</button>
+    <button class="btn btn-primary" ng-click="save()" ng-disabled="isClean() || cadastrosite.$invalid">Salvar</button>
+</div>
+</form>
+
+<hr/>
+Debug View:
+<pre>site={{site}}</pre>

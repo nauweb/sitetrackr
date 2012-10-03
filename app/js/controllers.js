@@ -12,52 +12,42 @@ function MyCtrl2() {
 MyCtrl2.$inject = [];
 
 
-function formCadastroCtrl($scope) {
-  var master = {
-    name: 'John Smith',
-    address:{
-      line1: '123 Main St.',
-      city:'Anytown',
-      state:'AA',
-      zip:'12345'
-    },
-    contacts:[
-      {type:'phone', value:'1(234) 555-1212'}
-    ]
-  };
 
-  $scope.state = /^\w\w$/;
-  $scope.zip = /^\d\d\d\d\d$/;
+function siteListCtrl($scope, Site) {
+  $scope.sites = Site.query();
+}
 
-  $scope.cancel = function() {
-    $scope.site = angular.copy(master);
-  };
 
+function siteCreateCtrl($scope, $location, Site) {
   $scope.save = function() {
-    master = $scope.site;
-    $scope.cancel();
-  };
+     Site.save($scope.site, function(site) {
+      $location.path('/edit/' + site._id.$oid);
+    });
+  }
+}
 
-  $scope.addContact = function() {
-    $scope.site.contacts.push({type:'', value:''});
-  };
 
-  $scope.removeContact = function(contact) {
-    var contacts = $scope.site.contacts;
-    for (var i = 0, ii = contacts.length; i < ii; i++) {
-      if (contact === contacts[i]) {
-        contacts.splice(i, 1);
-      }
-    }
-  };
+function siteEditCtrl($scope, $location, $routeParams, Site) {  
+  var self = this;
+  
+  Site.get({id: $routeParams.siteId}, function(site) {
+    self.original = site;
+    $scope.site = new Site(self.original);
+  });
 
-  $scope.isCancelDisabled = function() {
-    return angular.equals(master, $scope.site);
+  $scope.isClean = function() {
+    return angular.equals(self.original, $scope.site);
+  }
+ 
+  $scope.destroy = function() {
+    self.original.destroy(function() {
+      $location.path('/list');
+    });
   };
-
-  $scope.isSaveDisabled = function() {
-    return $scope.myForm.$invalid || angular.equals(master, $scope.site);
+ 
+  $scope.save = function() {
+    $scope.site.update(function() {
+      $location.path('/');
+    });
   };
-
-  $scope.cancel();
 }

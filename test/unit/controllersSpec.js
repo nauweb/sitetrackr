@@ -2,11 +2,11 @@
 
 /* jasmine specs for controllers go here */
 
-describe('MyCtrl1', function(){
-  var myCtrl1;
+describe('siteCreateCtrl', function(){
+  var siteCreateCtrl;
 
   beforeEach(function(){
-    myCtrl1 = new MyCtrl1();
+    myCtrl1 = new siteCreateCtrl();
   });
 
 
