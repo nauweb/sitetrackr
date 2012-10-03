@@ -39,15 +39,16 @@ function siteEditCtrl($scope, $location, $routeParams, Site) {
     return angular.equals(self.original, $scope.site);
   }
  
+  $scope.save = function() {
+    $scope.site.update(function() {
+      $location.path('/');
+    });
+  };
+  
   $scope.destroy = function() {
     self.original.destroy(function() {
       $location.path('/list');
     });
   };
  
-  $scope.save = function() {
-    $scope.site.update(function() {
-      $location.path('/');
-    });
-  };
 }
